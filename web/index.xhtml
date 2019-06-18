@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:growl id="msj" autoUpdate="true"/>
+        <div align="center">
+            <h:form id="formMascota">
+                <p:panel style="width:40">
+                    <f:facet name="header">
+                        <p:column>
+                            <p:outputLabel value ="MASCOTAS"/>
+                        </p:column>
+                    </f:facet>
+                    <p:panelGrid style="width:40 ">
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="ID"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBean.mascota.idMascota}" required="true"/>    
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="NOMBRE MASCOTA"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBean.mascota.nombreMascota}" required="true"/>
+                            </p:column>   
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="NOMBRE DUEÑO"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBean.mascota.nombreCliente}" required="true"/>
+                            </p:column>   
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:outputLabel value="RAZA"/>
+                            </p:column>
+                            <p:column>
+                                <p:inputText value="#{mascotaBean.mascota.raza}" required="true"/>
+                            </p:column>   
+                        </p:row> 
+                    </p:panelGrid>
+                    <p:commandButton value="REGISTRAR" action="#{mascotaBean.guardarMascota()}" title=":formData:dataTable,:formMascota"/> 
+                    <p:commandButton value="NUEVO" action="#{mascotaBean.limpiar()}" update=":formMascota"/>
+                </p:panel> 
+            </h:form>
+            <h:form id="formData">
+               
+                <p:dataTable rowKey="#{mascota.idMascota}" selection="#{mascotaBean.mascota}" selectionMode="single" id="dataTable" var="mascota" value="#{mascotaBean.listarMascotas()}">
+                    <p:ajax  event="rowSelect" update=":formMascota"/>
+                        <p:column headerText="Codigo">
+                            <p:outputLabel value="#{mascota.idMascota}"/> 
+                        </p:column>
+                        <p:column headerText="Mascota">
+                            <p:outputLabel value="#{mascota.nombreMascota}"/> 
+                        </p:column>
+                        <p:column headerText="Cliente">
+                            <p:outputLabel value="#{mascota.nombreCliente}"/> 
+                        </p:column>
+                        <p:column headerText="Raza">
+                            <p:outputLabel value="#{mascota.raza}"/> 
+                        </p:column>
+                        <p:column>
+                            <p:commandButton value="ELIMINAR" action="#{mascotaBean.eliminarMascota()}" title=":formData:dataTable"/>
+                        </p:column>
+                    </p:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
